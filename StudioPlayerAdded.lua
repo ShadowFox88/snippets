@@ -5,8 +5,6 @@ local function onPlayerAdded(player)
 	-- the rest of your code goes here...
 end
 
-Players.PlayerAdded:Connect(onPlayerAdded)
-
 -- this block will run only if the script is being run within studio
 
 -- the reason this is done in the first place is because the server run by
@@ -15,6 +13,8 @@ Players.PlayerAdded:Connect(onPlayerAdded)
 -- it, running it directly
 if RunService:IsStudio() then
 	for _, player in Players:GetPlayers() do
-		onPlayerAdded(player)
+		task.spawn(onPlayerAdded, player)
 	end
 end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
